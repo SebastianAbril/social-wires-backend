@@ -132,11 +132,102 @@ Path: http://localhost:3000/wires/messages/message/2
 
 ## Create reaction
 
+Module: messages
+
+Method: PATCH
+
+Path: http://localhost:3000/wires/messages/reaction/3
+
+Request Payload:
+```bash
+  {
+"reaction": "Buenos días estamos🙂🙂🙂🙂🙂 probando el api para que todo salga bien 🙂🙂🙂🙂🙂",
+"author": 3
+} 
+
+```
+Response Payload:
+```bash
+{
+    "id": 3,
+    "createAt": "2023-04-04T07:30:13.686Z",
+    "userId": 1,
+    "title": "buenas noches",
+    "text": "la noche esta serena",
+    "comments": [],
+    "reactions": [
+        {
+            "author": 3,
+            "reaction": "😏 Buenos días estamos🙂🙂🙂🙂🙂 probando el api para que todo salga bien 🙂🙂🙂🙂🙂",
+            "id": 12,
+            "createAt": "2023-04-04T23:02:06.688Z"
+        }
+    ]
+}
+```
+
 ## Create new user
+
+Module: auth
+
+Method: POST
+
+Path: http://localhost:3000/wires/auth/signup
+
+Request Payload:
+```bash
+  {
+      "username": "Alejandro Jaramillo",
+      "email": "Aapepe@gmail.com",
+      "password" : "12easfasf",
+      "fullname" : "Alejandro Jaramillo"
+  }
+```
+Response Payload:
+```bash
+  {
+    "username": "Alejandro Jaramillo",
+    "fullname": "Alejandro Jaramillo",
+    "id": 8,
+    "createAt": "2023-04-05T02:53:47.535Z"
+  }
+```
 
 ## Create comment
 
-## Delete Message
+Module: messages
+
+Method: PATCH
+
+Path: http://localhost:3000/wires/messages/comment/5
+
+Request Payload:
+```bash
+  {
+  "comment": "Esto Si es posible",
+  "author": 4
+  }
+```
+Response Payload:
+```bash
+  {
+    "id": 5,
+    "createAt": "2023-04-04T09:27:20.951Z",
+    "userId": 1,
+    "title": "buenas nochesssss",
+    "text": "la noche esta serenasssssssss",
+    "comments": [
+        {
+            "author": 4,
+            "comment": "Esto Si es posible",
+            "id": 13,
+            "createAt": "2023-04-05T02:55:27.213Z"
+        }
+    ],
+    "reactions": []
+  }
+```
+
 
 
 
