@@ -130,6 +130,14 @@ Method: POST
 
 Path: http://localhost:3000/wires/messages/message/2
 
+## Create reaction
+
+## Create new user
+
+## Create comment
+
+## Delete Message
+
 
 
 # Estructura de Tablas
@@ -139,7 +147,7 @@ Path: http://localhost:3000/wires/messages/message/2
 
 ## Correr el proyecto
 Se debe crear un archivo .env con la siguiente información en el directorio del proyecto:
-
+```bash
 DB_HOST=localhost
 
 DB_PORT=5432
@@ -149,6 +157,7 @@ DB_USERNAME=social_user
 DB_PASSWORD=123456
 
 DB_DATABASE=social_wired_db
+```
 
 
 Luego para correr la aplicación se debe ejecutar el siguiente comando en la consola en la ubicación del proyecto:
@@ -160,21 +169,23 @@ $ docker-compose up
 Luego ejecutar las migraciones con el comando:
 
 ```bash
-$ Comando para ejecutar migraciones.
+$ npm run migration:run
 ```
 
-
-
-
+Finalmente ejecutar:
 
 ```bash
-# development
 $ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
+
+
+- Crear un nuevo usuario con el endpoint de CreateUser.
+- Crear mensajes
+- Crear reacciones
+- Crear comentarios
+- Obtener todos los mensajes, obtener los mensajes por id y por id del usuario.
+- Borrar mensajes.
+
+
+
 

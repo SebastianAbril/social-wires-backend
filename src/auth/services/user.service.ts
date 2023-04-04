@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
@@ -20,7 +20,7 @@ export class UserService {
   ): Promise<User> {
     const user = await this.userRepository.findOneBy({ username: username });
     if (user) {
-      throw new Error(`Username already used`);
+      throw new BadRequestException(`Username already used`);
     }
 
     const passwordHash = await bcrypt.hash(password, saltOrRounds);

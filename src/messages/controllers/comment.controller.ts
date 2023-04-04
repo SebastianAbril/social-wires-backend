@@ -9,7 +9,6 @@ import {
 import { Message } from '../entity/message.entity';
 import { CommentService } from '../services/comment.service';
 import { CommentRequestDTO } from './dto/comment.request.dto';
-import { messageToDTO } from './dto/message.response.dto';
 
 @Controller('wires/messages/comment')
 export class CommentController {

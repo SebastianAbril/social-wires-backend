@@ -44,7 +44,7 @@ export class MessageService {
     const user = await this.userRepository.findOneBy({ id: userId });
 
     if (user == undefined) {
-      throw new Error(`User with id ${userId} was not found`);
+      throw new BadRequestException(`User with id ${userId} was not found`);
     }
 
     return this.messageRepository.find({ where: { userId } });
@@ -68,7 +68,7 @@ export class MessageService {
       );
     }
 
-    if (userId == message.userId) {
+    if (userId !== message.userId) {
       throw new BadRequestException(
         `You can not delete other person's comments`,
       );

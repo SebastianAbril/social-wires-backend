@@ -3,7 +3,6 @@ import { MessageService } from '../services/message.service';
 import { CreateMessageDTO } from './dto/create.message.dto';
 import { MessageResponseDTO, messageToDTO } from './dto/message.response.dto';
 import { Message } from '../entity/message.entity';
-import { DeleteResult } from 'typeorm';
 
 @Controller('/wires/messages')
 export class MessageController {

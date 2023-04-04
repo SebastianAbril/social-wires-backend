@@ -1,4 +1,4 @@
-import { Entity, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../common/entity/base.entity';
 import { Reaction } from './reaction.entity';
 import { Comment } from './comment.entity';
