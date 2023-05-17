@@ -280,3 +280,8 @@ $ npm run start
 
 docker run  --name s
 
+# Correr el proyecto
+1. Crear la base de datos con el comando:
+```
+docker-compose up
+```
