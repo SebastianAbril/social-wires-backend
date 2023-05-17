@@ -10,7 +10,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('SOCIAL-WIRES-BACKEND')
-    .setDescription('The Social Wires Backend API description')
+    .setDescription(
+      'The Social Wires Backend API was develiped with NestJS,Typescript, Docker and PostgreSQL',
+    )
     .setVersion('1.0')
     .addTag('SOCIAL-WIRES')
     .build();
