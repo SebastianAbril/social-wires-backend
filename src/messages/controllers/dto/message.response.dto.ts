@@ -5,7 +5,7 @@ import {
   IsNumber,
   IsString,
 } from 'class-validator';
-import { Message } from 'src/messages/entity/message.entity';
+import { Message } from '../../entity/message.entity';
 
 export class MessageResponseDTO {
   @IsNumber()

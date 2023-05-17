@@ -16,3 +16,7 @@ jobs:
             node-version: 16.x
       - name: npm install
         run: npm install
+
+jobs:
+  publish:
+

@@ -278,5 +278,5 @@ $ npm run start
 - Borrar mensajes.
 
 
-
+docker run  --name s
 
