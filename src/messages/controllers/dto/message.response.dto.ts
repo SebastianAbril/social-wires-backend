@@ -1,21 +1,50 @@
+import {
+  IsArray,
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 import { Message } from 'src/messages/entity/message.entity';
 
 export class MessageResponseDTO {
+  @IsNumber()
+  @IsNotEmpty()
   id: number;
+  @IsNumber()
+  @IsNotEmpty()
   user: number;
+  @IsString()
+  @IsNotEmpty()
   title: string;
+  @IsString()
+  @IsNotEmpty()
   text: string;
+  @IsArray()
+  @IsNotEmpty()
   comments: CommentDTO[];
+  @IsArray()
+  @IsNotEmpty()
   reactions: ReactionDTO[];
+  @IsDate()
+  @IsNotEmpty()
   createAt: Date;
 }
 
 export class ReactionDTO {
+  @IsString()
+  @IsNotEmpty()
   reaction: string;
+  @IsNumber()
+  @IsNotEmpty()
   author: number;
 }
 export class CommentDTO {
+  @IsString()
+  @IsNotEmpty()
   commnet: string;
+  @IsNumber()
+  @IsNotEmpty()
   author: number;
 }
 

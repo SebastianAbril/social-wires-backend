@@ -3,7 +3,9 @@ import { MessageService } from '../services/message.service';
 import { CreateMessageDTO } from './dto/create.message.dto';
 import { MessageResponseDTO, messageToDTO } from './dto/message.response.dto';
 import { Message } from '../entity/message.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Messages')
 @Controller('/wires/messages')
 export class MessageController {
   constructor(private messageService: MessageService) {}

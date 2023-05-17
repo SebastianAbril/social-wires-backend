@@ -9,7 +9,9 @@ import {
 import { Message } from '../entity/message.entity';
 import { CommentService } from '../services/comment.service';
 import { CommentRequestDTO } from './dto/comment.request.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Messages')
 @Controller('wires/messages/comment')
 export class CommentController {
   constructor(private commentService: CommentService) {}
