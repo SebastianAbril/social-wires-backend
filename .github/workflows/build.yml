@@ -36,3 +36,5 @@ jobs:
 
       - name: Pusk Docker Image
         run: docker push sebastianabril6/social-wires-backend:latest
+    
+    
