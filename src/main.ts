@@ -6,12 +6,17 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('SOCIAL-WIRES-BACKEND')
     .setDescription(
-      'The Social Wires Backend API was develiped with NestJS,Typescript, Docker and PostgreSQL',
+      'Social Wires Backend API was developed with NestJS,Typescript, Docker and PostgreSQL',
     )
     .setVersion('1.0')
     .addTag('SOCIAL-WIRES')

@@ -18,7 +18,7 @@ export class CreateMessageDTO {
   title: string;
   @ApiProperty({
     description: 'The content of the message',
-    example: "Hello my name is Sebastian and I'm strong",
+    example: 'Hello my name is Juan',
   })
   @IsString()
   @IsNotEmpty()

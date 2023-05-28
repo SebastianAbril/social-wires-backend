@@ -24,7 +24,7 @@ export class ReactionService {
   ): Promise<Message> {
     const user = await this.userRepository.findOneBy({ id: userId });
     if (user == null) {
-      throw new Error(`User with id ${userId} not found`);
+      throw new NotFoundException(`User with id ${userId} not found`);
     }
 
     const message = await this.messageRepository.findOneBy({

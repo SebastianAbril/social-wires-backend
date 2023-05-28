@@ -36,5 +36,16 @@ jobs:
 
       - name: Pusk Docker Image
         run: docker push sebastianabril6/social-wires-backend:latest
-    
-    
+
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy to AWS EC2
+        uses: appleboy/shh-action@master
+        with:
+          host: ${{}}
+          username: ${{}}
+          key: ${{}}
+          script: docker rm -f trips-api || true
+            docker run -d --pull always --restart always --name trips-api --net trip-net -p 3000:3000 -e DATABASE_HOST=${{ secrets.DATABASE_HOST }} -e DATABASE_PORT=${{ secrets.DATABASE_PORT }} -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} -e DATABASE_NAME=${{ secrets.DATABASE_NAME }} sebastianabril6/trips-api:latest

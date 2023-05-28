@@ -32,7 +32,9 @@ export class CommentService {
 
     const message = await this.messageRepository.findOneBy({ id: messageId });
     if (message == null) {
-      throw new NotFoundException(`Message with id ${userId} was not found`);
+      throw new NotFoundException(
+        `The Message with id ${messageId} was not found`,
+      );
     }
 
     if (user.id == message.userId) {

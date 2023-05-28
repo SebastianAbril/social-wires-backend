@@ -22,10 +22,11 @@ export class MessageService {
     title: string,
     content: string,
   ): Promise<Message> {
+    console.log('Esta entrando');
     const user = await this.userRepository.findOneBy({ id: userId });
 
     if (user == undefined) {
-      throw new Error(`User with id ${userId} not found`);
+      throw new NotFoundException(`User with id ${userId} not found`);
     }
 
     const message = new Message();
@@ -61,8 +62,12 @@ export class MessageService {
 
   async deleteMessageById(messageId: number, userId: number): Promise<Message> {
     const message = await this.messageRepository.findOneBy({ id: messageId });
+    const user = await this.userRepository.findOneBy({ id: userId });
 
-    if (message == undefined) {
+    if (user == null || user == undefined) {
+      throw new NotFoundException(`The user with id ${userId} was not found`);
+    }
+    if (message == undefined || message == null) {
       throw new NotFoundException(
         `Message with id ${messageId} could not be deleted, it was not found`,
       );

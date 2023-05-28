@@ -6,6 +6,8 @@ import {
   IsString,
 } from 'class-validator';
 import { Message } from '../../entity/message.entity';
+import { ReactionDTO } from './reaction.dto';
+import { CommentDTO } from './comment.dto';
 
 export class MessageResponseDTO {
   @IsNumber()
@@ -29,23 +31,6 @@ export class MessageResponseDTO {
   @IsDate()
   @IsNotEmpty()
   createAt: Date;
-}
-
-export class ReactionDTO {
-  @IsString()
-  @IsNotEmpty()
-  reaction: string;
-  @IsNumber()
-  @IsNotEmpty()
-  author: number;
-}
-export class CommentDTO {
-  @IsString()
-  @IsNotEmpty()
-  commnet: string;
-  @IsNumber()
-  @IsNotEmpty()
-  author: number;
 }
 
 export const messageToDTO = (message: Message) => {
