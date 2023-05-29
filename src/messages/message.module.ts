@@ -14,10 +14,6 @@ import { CommentService } from './services/comment.service';
 @Module({
   imports: [AuthModule, TypeOrmModule.forFeature([Message, Comment, Reaction])],
   controllers: [MessageController, ReactionController, CommentController],
-  providers: [
-    MessageService,
-    ReactionService,
-    CommentService,
-  ],
+  providers: [MessageService, ReactionService, CommentService],
 })
 export class MessageModule {}

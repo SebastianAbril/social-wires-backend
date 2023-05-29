@@ -2,9 +2,15 @@ import { Controller, Patch, Body, Param, HttpCode } from '@nestjs/common';
 import { Message } from '../entity/message.entity';
 import { ReactionService } from '../services/reaction.service';
 import { ReactionRequestDTO } from './dto/reaction.request.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { User, UserRequest } from '../../auth/decorator/user.decorator';
 
+@ApiBearerAuth()
 @ApiTags('Messages')
 @Controller('/wires/messages/reaction')
 export class ReactionController {

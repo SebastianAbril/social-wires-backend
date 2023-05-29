@@ -2,8 +2,14 @@ import { Body, Controller, HttpCode, Param, Patch } from '@nestjs/common';
 import { Message } from '../entity/message.entity';
 import { CommentService } from '../services/comment.service';
 import { CommentRequestDTO } from './dto/comment.request.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @ApiTags('Messages')
 @Controller('wires/messages/comment')
 export class CommentController {

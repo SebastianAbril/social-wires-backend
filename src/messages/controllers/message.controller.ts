@@ -12,9 +12,15 @@ import { MessageService } from '../services/message.service';
 import { CreateMessageDTO } from './dto/create.message.dto';
 import { MessageResponseDTO, messageToDTO } from './dto/message.response.dto';
 import { Message } from '../entity/message.entity';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { User, UserRequest } from '../../auth/decorator/user.decorator';
 
+@ApiBearerAuth()
 @ApiTags('Messages')
 @Controller('/wires/messages')
 export class MessageController {
