@@ -1,13 +1,12 @@
 import * as dotenv from 'dotenv';
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserService } from './services/user.service';
 import { UserController } from './controllers/user.controller';
 import { UserTypeORMRepository } from './repository/user.typeorm.repository';
 import { AuthService } from './services/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from './guard /auth.guard';
+import { AuthGuard } from './guard/auth.guard';
 
 dotenv.config();
 

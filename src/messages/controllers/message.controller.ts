@@ -13,7 +13,7 @@ import { CreateMessageDTO } from './dto/create.message.dto';
 import { MessageResponseDTO, messageToDTO } from './dto/message.response.dto';
 import { Message } from '../entity/message.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { User, UserRequest } from 'src/auth/decorator/user.decorator';
+import { User, UserRequest } from '../../auth/decorator/user.decorator';
 
 @ApiTags('Messages')
 @Controller('/wires/messages')

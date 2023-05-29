@@ -3,7 +3,7 @@ import { Message } from '../entity/message.entity';
 import { ReactionService } from '../services/reaction.service';
 import { ReactionRequestDTO } from './dto/reaction.request.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { User, UserRequest } from 'src/auth/decorator/user.decorator';
+import { User, UserRequest } from '../../auth/decorator/user.decorator';
 
 @ApiTags('Messages')
 @Controller('/wires/messages/reaction')

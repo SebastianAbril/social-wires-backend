@@ -8,7 +8,7 @@ import { Repository } from 'typeorm';
 import { Message } from '../entity/message.entity';
 import { Comment } from '../entity/comment.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserRepository } from 'src/auth/repository/user.repository';
+import { UserRepository } from '../../auth/repository/user.repository';
 
 @Injectable()
 export class CommentService {
