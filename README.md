@@ -1,6 +1,8 @@
 
 # Social Wires Backend
- Es una API desarrollada con NestJS y Typescript que consiste en una red social donde las personas publican mensajes, y los demás usuarios podrán comentar y reaccionar a estos.
+ Es una API desarrollada con NestJS y Typescript que consiste en una red social donde las personas publican mensajes, y los demás usuarios podrán comentar y reaccionar a estos. Puedes consultar el proyecto en:
+
+
 
  Las tecnologías usadas para la creación del proyecto son:
  - NestJS
@@ -74,8 +76,4 @@ $ npm run start
 
 docker run  --name s
 
-# Correr el proyecto
-1. Crear la base de datos con el comando:
-```
-docker-compose up
-```
+
