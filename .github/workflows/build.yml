@@ -49,4 +49,4 @@ jobs:
           key: ${{secrets.AWS_EC2_KEY}}
           script: |
             docker rm -f social-wires-backend || true
-            docker run -d --pull always --restart always --name social-wires-backend --net social-wires-net -p 3000:3000 -e DB_HOST=${{ secrets.DATABASE_HOST }} -e DB_PORT=${{ secrets.DATABASE_PORT }} -e DB_USERNAME=${{ secrets.DATABASE_USERNAME }} -e DB_PASSWORD=${{ secrets.DATABASE_PASSWORD }} -e DB_DATABASE=${{ secrets.DATABASE_NAME }} -e JWT_SECRET=${{ secrets.JWT_SECRET }} sebastianabril6/social-wires-backend:latest
+            docker run -d --pull always --restart always --name social-wires-backend --net social-wires-net -p 3000:3000 -e DB_HOST=${{ secrets.DB_HOST }} -e DB_PORT=${{ secrets.DB_PORT }} -e DB_USERNAME=${{ secrets.DB_USERNAME }} -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} -e DB_DATABASE=${{ secrets.DB_DATABASE }} -e JWT_SECRET=${{ secrets.JWT_SECRET }} sebastianabril6/social-wires-backend:latest
