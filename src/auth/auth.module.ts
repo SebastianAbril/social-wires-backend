@@ -11,6 +11,7 @@ import { AuthGuard } from './guard/auth.guard';
 dotenv.config();
 
 @Module({
+  exports: [{ provide: 'UserRepository', useClass: UserTypeORMRepository }],
   imports: [
     JwtModule.register({
       global: true,
