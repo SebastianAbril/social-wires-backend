@@ -13,6 +13,7 @@ import { CreateMessageDTO } from './dto/create.message.dto';
 import { MessageResponseDTO, messageToDTO } from './dto/message.response.dto';
 import { Message } from '../entity/message.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { User, UserRequest } from 'src/auth/decorator/user.decorator';
 
 @ApiTags('Messages')
 @Controller('/wires/messages')
@@ -36,9 +37,10 @@ export class MessageController {
   @Post()
   async createMessage(
     @Body() request: CreateMessageDTO,
+    @User() userRequest: UserRequest,
   ): Promise<MessageResponseDTO> {
     const message = await this.messageService.createMessage(
-      request.userId,
+      userRequest.userId,
       request.title,
       request.content,
     );

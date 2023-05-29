@@ -1,16 +1,9 @@
-import {
-  Controller,
-  Patch,
-  Body,
-  Param,
-  ClassSerializerInterceptor,
-  UseInterceptors,
-  HttpCode,
-} from '@nestjs/common';
+import { Controller, Patch, Body, Param, HttpCode } from '@nestjs/common';
 import { Message } from '../entity/message.entity';
 import { ReactionService } from '../services/reaction.service';
 import { ReactionRequestDTO } from './dto/reaction.request.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { User, UserRequest } from 'src/auth/decorator/user.decorator';
 
 @ApiTags('Messages')
 @Controller('/wires/messages/reaction')
@@ -34,15 +27,15 @@ export class ReactionController {
     description:
       'Not found. The message was not found or the author was not found',
   })
-  @UseInterceptors(ClassSerializerInterceptor)
   @Patch('/:id')
   async createReaction(
     @Param() params,
     @Body() request: ReactionRequestDTO,
+    @User() userRequest: UserRequest,
   ): Promise<Message> {
     const message = await this.reactionService.createReaction(
       params.id,
-      request.author,
+      userRequest.userId,
       request.reaction,
     );
 

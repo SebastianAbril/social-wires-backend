@@ -1,18 +1,18 @@
 import * as emoji from 'emoji-js';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Message } from '../entity/message.entity';
-import { User } from '../../auth/entity/user.entity';
 import { Reaction } from '../entity/reaction.entity';
+import { UserRepository } from 'src/auth/repository/user.repository';
 
 @Injectable()
 export class ReactionService {
   constructor(
     @InjectRepository(Message)
     private messageRepository: Repository<Message>,
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
+    @Inject('UserRepository')
+    private userRepository: UserRepository,
     @InjectRepository(Reaction)
     private reactionRepository: Repository<Reaction>,
   ) {}
@@ -22,7 +22,7 @@ export class ReactionService {
     userId: number,
     reaction: string,
   ): Promise<Message> {
-    const user = await this.userRepository.findOneBy({ id: userId });
+    const user = await this.userRepository.findOneBy(userId);
     if (user == null) {
       throw new NotFoundException(`User with id ${userId} not found`);
     }

@@ -1,12 +1,4 @@
-import {
-  Body,
-  ClassSerializerInterceptor,
-  Controller,
-  HttpCode,
-  Param,
-  Patch,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, Param, Patch } from '@nestjs/common';
 import { Message } from '../entity/message.entity';
 import { CommentService } from '../services/comment.service';
 import { CommentRequestDTO } from './dto/comment.request.dto';
@@ -32,7 +24,6 @@ export class CommentController {
     description:
       'Not found. The message was not found or the author was not found',
   })
-  @UseInterceptors(ClassSerializerInterceptor)
   @Patch('/:id')
   async createComment(
     @Param() params,

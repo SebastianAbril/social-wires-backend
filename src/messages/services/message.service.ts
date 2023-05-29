@@ -1,20 +1,21 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Message } from '../entity/message.entity';
-import { User } from '../../auth/entity/user.entity';
+import { UserRepository } from 'src/auth/repository/user.repository';
 
 @Injectable()
 export class MessageService {
   constructor(
     @InjectRepository(Message)
     private messageRepository: Repository<Message>,
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
+    @Inject('UserRepository')
+    private userRepository: UserRepository,
   ) {}
 
   async createMessage(
@@ -22,8 +23,8 @@ export class MessageService {
     title: string,
     content: string,
   ): Promise<Message> {
-    console.log('Esta entrando');
-    const user = await this.userRepository.findOneBy({ id: userId });
+    console.log('Esta entrando,', userId);
+    const user = await this.userRepository.findOneBy(userId);
 
     if (user == undefined) {
       throw new NotFoundException(`User with id ${userId} not found`);
@@ -42,7 +43,7 @@ export class MessageService {
   }
 
   async getMessagesByUser(userId: number): Promise<Message[]> {
-    const user = await this.userRepository.findOneBy({ id: userId });
+    const user = await this.userRepository.findOneBy(userId);
 
     if (user == undefined) {
       throw new BadRequestException(`User with id ${userId} was not found`);
@@ -62,7 +63,7 @@ export class MessageService {
 
   async deleteMessageById(messageId: number, userId: number): Promise<Message> {
     const message = await this.messageRepository.findOneBy({ id: messageId });
-    const user = await this.userRepository.findOneBy({ id: userId });
+    const user = await this.userRepository.findOneBy(userId);
 
     if (user == null || user == undefined) {
       throw new NotFoundException(`The user with id ${userId} was not found`);

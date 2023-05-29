@@ -1,14 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateMessageDTO {
-  @ApiProperty({
-    description: "The user's Id",
-    example: 2,
-  })
-  @IsNumber()
-  @IsNotEmpty()
-  userId: number;
   @ApiProperty({
     description: 'The title of the message',
     example: 'Empowering my brain',

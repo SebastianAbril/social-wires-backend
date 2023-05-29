@@ -1,29 +1,29 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { User } from '../../auth/entity/user.entity';
+import { UserRepository } from '../repository/user.repository';
 
-const saltOrRounds = 10;
+export const SaltOrRounds = 10;
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
-  ) {}
+  private userRepository: UserRepository;
+
+  constructor(@Inject('UserRepository') userRepository: UserRepository) {
+    this.userRepository = userRepository;
+  }
 
   async createUser(
     username: string,
     password: string,
     fullname: string,
   ): Promise<User> {
-    const user = await this.userRepository.findOneBy({ username: username });
+    const user = await this.userRepository.findOneByUsername(username);
     if (user) {
       throw new BadRequestException(`Username already used`);
     }
 
-    const passwordHash = await bcrypt.hash(password, saltOrRounds);
+    const passwordHash = await bcrypt.hash(password, SaltOrRounds);
 
     const newUser = new User();
     newUser.username = username;
@@ -31,5 +31,9 @@ export class UserService {
     newUser.fullname = fullname;
 
     return this.userRepository.save(newUser);
+  }
+
+  async findByUsername(username: string): Promise<User> {
+    return this.userRepository.findOneByUsername(username);
   }
 }

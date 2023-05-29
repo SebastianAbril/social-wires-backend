@@ -16,4 +16,12 @@ export class UserTypeORMRepository implements UserRepository {
   save(user: User): Promise<User> {
     return this.entityManager.save<User>(user);
   }
+
+  findOneBy(id: number): Promise<User> {
+    return this.entityManager.findOneBy(User, { id: id });
+  }
+
+  findOneByUsername(username: string): Promise<User> {
+    return this.entityManager.findOneBy(User, { username: username });
+  }
 }

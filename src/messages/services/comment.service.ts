@@ -1,21 +1,22 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Message } from '../entity/message.entity';
 import { Comment } from '../entity/comment.entity';
-import { User } from '../../auth/entity/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UserRepository } from 'src/auth/repository/user.repository';
 
 @Injectable()
 export class CommentService {
   constructor(
     @InjectRepository(Message)
     private messageRepository: Repository<Message>,
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
+    @Inject('UserRepository')
+    private userRepository: UserRepository,
     @InjectRepository(Comment)
     private commentRepository: Repository<Comment>,
   ) {}
@@ -25,7 +26,7 @@ export class CommentService {
     userId: number,
     comment: string,
   ): Promise<Message> {
-    const user = await this.userRepository.findOneBy({ id: userId });
+    const user = await this.userRepository.findOneBy(userId);
     if (user == null) {
       throw new NotFoundException(`User with id ${userId} was not found`);
     }
