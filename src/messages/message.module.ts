@@ -10,10 +10,24 @@ import { ReactionService } from './services/reaction.service';
 import { ReactionController } from './controllers/reaction.controller';
 import { CommentController } from './controllers/comment.controller';
 import { CommentService } from './services/comment.service';
+import { CommentTypeORMRepository } from './repository/comment.typeorm.repository';
+import { MessageTypeORMRepository } from './repository/message.typeorm.repository';
 
 @Module({
   imports: [AuthModule, TypeOrmModule.forFeature([Message, Comment, Reaction])],
   controllers: [MessageController, ReactionController, CommentController],
-  providers: [MessageService, ReactionService, CommentService],
+  providers: [
+    MessageService,
+    ReactionService,
+    CommentService,
+    {
+      provide: 'CommentRepository',
+      useClass: CommentTypeORMRepository,
+    },
+    {
+      provide: 'MessageRepository',
+      useClass: MessageTypeORMRepository,
+    },
+  ],
 })
 export class MessageModule {}

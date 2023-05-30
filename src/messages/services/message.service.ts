@@ -4,16 +4,15 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Message } from '../entity/message.entity';
 import { UserRepository } from '../../auth/repository/user.repository';
+import { MessageRepository } from '../repository/message.repository';
 
 @Injectable()
 export class MessageService {
   constructor(
-    @InjectRepository(Message)
-    private messageRepository: Repository<Message>,
+    @Inject('MessageRepository')
+    private messageRepository: MessageRepository,
     @Inject('UserRepository')
     private userRepository: UserRepository,
   ) {}
@@ -23,7 +22,6 @@ export class MessageService {
     title: string,
     content: string,
   ): Promise<Message> {
-    console.log('Esta entrando,', userId);
     const user = await this.userRepository.findOneBy(userId);
 
     if (user == undefined) {
@@ -39,30 +37,30 @@ export class MessageService {
   }
 
   async getAllMessages(): Promise<Message[]> {
-    return this.messageRepository.find();
+    return this.messageRepository.findAllMessages();
   }
 
   async getMessagesByUser(userId: number): Promise<Message[]> {
     const user = await this.userRepository.findOneBy(userId);
 
-    if (user == undefined) {
-      throw new BadRequestException(`User with id ${userId} was not found`);
+    if (user == undefined || user == null) {
+      throw new NotFoundException(`User with id ${userId} was not found`);
     }
 
-    return this.messageRepository.find({ where: { userId } });
+    return this.messageRepository.findMessagesByUser(userId);
   }
 
   async getMessageById(messageId: number): Promise<Message> {
-    const message = await this.messageRepository.findOneBy({ id: messageId });
+    const message = await this.messageRepository.findMessageById(messageId);
 
-    if (message == undefined) {
+    if (message == undefined || message == null) {
       throw new NotFoundException(`Message with id ${messageId} was not found`);
     }
     return message;
   }
 
   async deleteMessageById(messageId: number, userId: number): Promise<Message> {
-    const message = await this.messageRepository.findOneBy({ id: messageId });
+    const message = await this.messageRepository.findMessageById(messageId);
     const user = await this.userRepository.findOneBy(userId);
 
     if (user == null || user == undefined) {
@@ -73,7 +71,6 @@ export class MessageService {
         `Message with id ${messageId} could not be deleted, it was not found`,
       );
     }
-
     if (userId !== message.userId) {
       throw new BadRequestException(
         `You can not delete other person's comments`,

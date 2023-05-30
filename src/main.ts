@@ -19,7 +19,6 @@ async function bootstrap() {
       'Social Wires Backend API was developed with NestJS,Typescript, Docker and PostgreSQL',
     )
     .setVersion('1.0')
-    .addTag('SOCIAL-WIRES')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);

@@ -75,9 +75,13 @@ export class MessageController {
     status: 200,
     description: "Ok.The user's messages were gotten sucessfully",
   })
-  @Get('/me/:id')
-  async getMessagesByUser(@Param() params): Promise<MessageResponseDTO[]> {
-    const messages = await this.messageService.getMessagesByUser(params.id);
+  @Get('/me')
+  async getMessagesByUser(
+    @User() userRequest: UserRequest,
+  ): Promise<MessageResponseDTO[]> {
+    const messages = await this.messageService.getMessagesByUser(
+      userRequest.userId,
+    );
     return messages.map((message) => messageToDTO(message));
   }
 
@@ -109,14 +113,14 @@ export class MessageController {
     status: 404,
     description: 'Not Found. The message or the user were not found',
   })
-  @Delete('/message/:id/:userId')
+  @Delete('/message/:id')
   async deleteMessageById(
     @Param('id', new ParseIntPipe()) id: number,
-    @Param('userId', new ParseIntPipe()) userId: number,
+    @User() userRequest: UserRequest,
   ): Promise<Message> {
     const deletedMessage = await this.messageService.deleteMessageById(
       id,
-      userId,
+      userRequest.userId,
     );
 
     return deletedMessage;

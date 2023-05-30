@@ -38,6 +38,16 @@ export class UserController {
     return user;
   }
 
+  @ApiOperation({ description: 'This endpoints allows an User to sign in' })
+  @HttpCode(201)
+  @ApiResponse({
+    status: 201,
+    description: 'The user has signed up sucessfully.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request. Check the parameters of the Request.',
+  })
   @Post('/signin')
   @Public()
   async signIn(@Body() request: SignInRequest): Promise<SignInRespose> {

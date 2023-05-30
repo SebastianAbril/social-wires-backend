@@ -8,6 +8,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { User, UserRequest } from 'src/auth/decorator/user.decorator';
 
 @ApiBearerAuth()
 @ApiTags('Messages')
@@ -34,10 +35,11 @@ export class CommentController {
   async createComment(
     @Param() params,
     @Body() request: CommentRequestDTO,
+    @User() userRequest: UserRequest,
   ): Promise<Message> {
     const message = await this.commentService.createComment(
       params.id,
-      request.author,
+      userRequest.userId,
       request.comment,
     );
 

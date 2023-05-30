@@ -19,10 +19,6 @@ export class AuthService {
   async signIn(username: string, password: string): Promise<string> {
     const user = await this.userRepository.findOneByUsername(username);
 
-    console.log(user);
-    console.log('username', username);
-    console.log('password', password);
-
     const hash = await bcrypt.hash(password, SaltOrRounds);
 
     if (bcrypt.compareSync(hash, user.password)) {

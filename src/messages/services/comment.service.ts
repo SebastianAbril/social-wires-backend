@@ -4,21 +4,22 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Repository } from 'typeorm';
+
 import { Message } from '../entity/message.entity';
 import { Comment } from '../entity/comment.entity';
-import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from '../../auth/repository/user.repository';
+import { CommentRepository } from '../repository/comment.repository';
+import { MessageRepository } from '../repository/message.repository';
 
 @Injectable()
 export class CommentService {
   constructor(
-    @InjectRepository(Message)
-    private messageRepository: Repository<Message>,
+    @Inject('MessageRepository')
+    private messageRepository: MessageRepository,
     @Inject('UserRepository')
     private userRepository: UserRepository,
-    @InjectRepository(Comment)
-    private commentRepository: Repository<Comment>,
+    @Inject('CommentRepository')
+    private commentRepository: CommentRepository,
   ) {}
 
   async createComment(
@@ -31,7 +32,7 @@ export class CommentService {
       throw new NotFoundException(`User with id ${userId} was not found`);
     }
 
-    const message = await this.messageRepository.findOneBy({ id: messageId });
+    const message = await this.messageRepository.findMessageById(messageId);
     if (message == null) {
       throw new NotFoundException(
         `The Message with id ${messageId} was not found`,
