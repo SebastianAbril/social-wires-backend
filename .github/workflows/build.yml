@@ -18,10 +18,13 @@ jobs:
       - name: npm install
         run: npm install
 
+      - name: npm run lint
+        run: npm run lint
+
       - name: npm build
         run: npm run build
 
-      - name: uni testing
+      - name: unit testing
         run: npm run test
 
   publish:
