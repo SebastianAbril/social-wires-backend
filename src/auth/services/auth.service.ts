@@ -1,20 +1,16 @@
 import { Injectable, UnauthorizedException, Inject } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
 import { UserRepository } from '../repository/user.repository';
-import { SaltOrRounds } from './user.service';
+import { PasswordService } from './password.service';
 
 @Injectable()
 export class AuthService {
-  private userRepository: UserRepository;
-  private jwtService: JwtService;
   constructor(
-    @Inject('UserRepository') userRepository: UserRepository,
-    jwtService: JwtService,
-  ) {
-    this.userRepository = userRepository;
-    this.jwtService = jwtService;
-  }
+    @Inject('UserRepository')
+    private userRepository: UserRepository,
+    private jwtService: JwtService,
+    private passwordService: PasswordService,
+  ) {}
 
   async signIn(username: string, password: string): Promise<string> {
     const user = await this.userRepository.findOneByUsername(username);
@@ -22,7 +18,7 @@ export class AuthService {
       throw new UnauthorizedException('The user or password is not valid');
     }
 
-    if (!bcrypt.compareSync(password, user.password)) {
+    if (!(await this.passwordService.compare(password, user.password))) {
       throw new UnauthorizedException('The user or password is not valid');
     }
 

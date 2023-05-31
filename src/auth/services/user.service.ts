@@ -1,15 +1,15 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
 import { User } from '../../auth/entity/user.entity';
 import { UserRepository } from '../repository/user.repository';
-
-export const SaltOrRounds = 10;
+import { PasswordService } from './password.service';
 
 @Injectable()
 export class UserService {
-  private userRepository: UserRepository;
-
-  constructor(@Inject('UserRepository') userRepository: UserRepository) {
+  constructor(
+    @Inject('UserRepository')
+    private userRepository: UserRepository,
+    private passwordService: PasswordService,
+  ) {
     this.userRepository = userRepository;
   }
 
@@ -23,7 +23,7 @@ export class UserService {
       throw new BadRequestException(`Username already used`);
     }
 
-    const passwordHash = await bcrypt.hash(password, SaltOrRounds);
+    const passwordHash = await this.passwordService.hash(password);
 
     const newUser = new User();
     newUser.username = username;
