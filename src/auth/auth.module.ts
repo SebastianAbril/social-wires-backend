@@ -7,6 +7,7 @@ import { AuthService } from './services/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './guard/auth.guard';
+import { PasswordService } from './services/password.service';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ dotenv.config();
   ],
   controllers: [UserController],
   providers: [
+    PasswordService,
     AuthService,
     UserService,
     {
