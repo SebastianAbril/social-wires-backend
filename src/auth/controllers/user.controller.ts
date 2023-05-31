@@ -21,6 +21,7 @@ export class UserController {
   @ApiResponse({
     status: 201,
     description: 'The user has been sucessfully created.',
+    type: User,
   })
   @ApiResponse({
     status: 400,
@@ -39,10 +40,11 @@ export class UserController {
   }
 
   @ApiOperation({ description: 'This endpoints allows an User to sign in' })
-  @HttpCode(201)
+  @HttpCode(200)
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'The user has signed up sucessfully.',
+    type: SignInRespose,
   })
   @ApiResponse({
     status: 400,

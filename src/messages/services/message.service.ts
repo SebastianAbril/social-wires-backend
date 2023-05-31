@@ -71,8 +71,7 @@ export class MessageService {
         `Message with id ${messageId} could not be deleted, it was not found`,
       );
     }
-    console.log('El userId: ' + userId);
-    console.log('El message.userId: ' + message.userId);
+
     if (userId !== message.userId) {
       throw new BadRequestException(
         `You can not delete other person's comments`,

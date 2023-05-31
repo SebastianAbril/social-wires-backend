@@ -5,12 +5,13 @@ import { Repository } from 'typeorm';
 import { Message } from '../entity/message.entity';
 import { Reaction } from '../entity/reaction.entity';
 import { UserRepository } from '../../auth/repository/user.repository';
+import { MessageRepository } from '../repository/message.repository';
 
 @Injectable()
 export class ReactionService {
   constructor(
-    @InjectRepository(Message)
-    private messageRepository: Repository<Message>,
+    @Inject('MessageRepository')
+    private messageRepository: MessageRepository,
     @Inject('UserRepository')
     private userRepository: UserRepository,
     @InjectRepository(Reaction)
@@ -27,9 +28,7 @@ export class ReactionService {
       throw new NotFoundException(`User with id ${userId} not found`);
     }
 
-    const message = await this.messageRepository.findOneBy({
-      id: messageId,
-    });
+    const message = await this.messageRepository.findMessageById(messageId);
     if (message == null) {
       throw new NotFoundException(`message with id ${messageId} not found`);
     }

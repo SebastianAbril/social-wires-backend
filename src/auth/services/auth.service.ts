@@ -18,11 +18,12 @@ export class AuthService {
 
   async signIn(username: string, password: string): Promise<string> {
     const user = await this.userRepository.findOneByUsername(username);
+    if (user === null) {
+      throw new UnauthorizedException('The user or password is not valid');
+    }
 
-    const hash = await bcrypt.hash(password, SaltOrRounds);
-
-    if (bcrypt.compareSync(hash, user.password)) {
-      throw new UnauthorizedException();
+    if (!bcrypt.compareSync(password, user.password)) {
+      throw new UnauthorizedException('The user or password is not valid');
     }
 
     const payload = { username: user.username, userId: user.id };

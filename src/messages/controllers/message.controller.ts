@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { MessageService } from '../services/message.service';
 import { CreateMessageDTO } from './dto/create.message.dto';
-import { MessageResponseDTO, messageToDTO } from './dto/message.response.dto';
 import { Message } from '../entity/message.entity';
 import {
   ApiBearerAuth,
@@ -44,13 +43,13 @@ export class MessageController {
   async createMessage(
     @Body() request: CreateMessageDTO,
     @User() userRequest: UserRequest,
-  ): Promise<MessageResponseDTO> {
+  ): Promise<Message> {
     const message = await this.messageService.createMessage(
       userRequest.userId,
       request.title,
       request.content,
     );
-    return messageToDTO(message);
+    return message;
   }
 
   @ApiOperation({
@@ -60,11 +59,13 @@ export class MessageController {
   @ApiResponse({
     status: 200,
     description: ' OK. The list of messages was gotten sucessfully',
+    isArray: true,
+    type: Message,
   })
   @Get('/')
-  async getAllMessages(): Promise<MessageResponseDTO[]> {
+  async getAllMessages(): Promise<Message[]> {
     const messages = await this.messageService.getAllMessages();
-    return messages.map((message) => messageToDTO(message));
+    return messages;
   }
 
   @ApiOperation({
@@ -78,11 +79,11 @@ export class MessageController {
   @Get('/me')
   async getMessagesByUser(
     @User() userRequest: UserRequest,
-  ): Promise<MessageResponseDTO[]> {
+  ): Promise<Message[]> {
     const messages = await this.messageService.getMessagesByUser(
       userRequest.userId,
     );
-    return messages.map((message) => messageToDTO(message));
+    return messages;
   }
 
   @ApiOperation({ description: "Gets a message by the message's id" })

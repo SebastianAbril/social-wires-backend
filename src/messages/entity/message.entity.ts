@@ -2,9 +2,14 @@ import { Entity, Column, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../common/entity/base.entity';
 import { Reaction } from './reaction.entity';
 import { Comment } from './comment.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Message extends BaseEntity {
+  @ApiProperty({
+    description: 'The user id',
+    example: 1,
+  })
   @Column()
   userId: number;
 

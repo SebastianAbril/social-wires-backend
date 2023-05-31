@@ -14,11 +14,6 @@ export class SignupRequestDTO {
     description: 'The email of the user',
     example: 'SebastianAbril@gmail.com',
   })
-  @IsString()
-  @IsNotEmpty()
-  @IsEmail()
-  email: string;
-
   @ApiProperty({
     description: 'The password of the user',
     example: '13dssdg2r23',

@@ -8,7 +8,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { User, UserRequest } from 'src/auth/decorator/user.decorator';
+import { User, UserRequest } from '../../auth/decorator/user.decorator';
 
 @ApiBearerAuth()
 @ApiTags('Messages')
