@@ -21,6 +21,7 @@ export class CommentController {
   @ApiResponse({
     status: 201,
     description: 'The comment was created sucessfully',
+    type: Message,
   })
   @ApiResponse({
     status: 400,

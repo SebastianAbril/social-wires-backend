@@ -30,6 +30,7 @@ export class MessageController {
   @ApiResponse({
     status: 201,
     description: 'The message was created sucessfully',
+    type: Message,
   })
   @ApiResponse({
     status: 400,
@@ -75,6 +76,8 @@ export class MessageController {
   @ApiResponse({
     status: 200,
     description: "Ok.The user's messages were gotten sucessfully",
+    isArray: true,
+    type: Message,
   })
   @Get('/me')
   async getMessagesByUser(
@@ -91,6 +94,7 @@ export class MessageController {
   @ApiResponse({
     status: 200,
     description: 'Ok. The message was gotten sucessfully',
+    type: Message,
   })
   @Get('/message/:id')
   async getMessageById(@Param() params): Promise<Message> {
@@ -105,6 +109,7 @@ export class MessageController {
   @ApiResponse({
     status: 200,
     description: 'Ok. The message was deleted sucessfully',
+    type: Message,
   })
   @ApiResponse({
     status: 400,

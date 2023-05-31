@@ -1,20 +1,17 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '../auth/auth.module';
 import { MessageController } from './controllers/message.controller';
-import { Message } from './entity/message.entity';
-import { Reaction } from './entity/reaction.entity';
 import { MessageService } from './services/message.service';
-import { Comment } from './entity/comment.entity';
 import { ReactionService } from './services/reaction.service';
 import { ReactionController } from './controllers/reaction.controller';
 import { CommentController } from './controllers/comment.controller';
 import { CommentService } from './services/comment.service';
 import { CommentTypeORMRepository } from './repository/comment.typeorm.repository';
 import { MessageTypeORMRepository } from './repository/message.typeorm.repository';
+import { ReactionTypeORMRepository } from './repository/reaction.typeorm.repository';
 
 @Module({
-  imports: [AuthModule, TypeOrmModule.forFeature([Message, Comment, Reaction])],
+  imports: [AuthModule],
   controllers: [MessageController, ReactionController, CommentController],
   providers: [
     MessageService,
@@ -27,6 +24,10 @@ import { MessageTypeORMRepository } from './repository/message.typeorm.repositor
     {
       provide: 'MessageRepository',
       useClass: MessageTypeORMRepository,
+    },
+    {
+      provide: 'ReactionRepository',
+      useClass: ReactionTypeORMRepository,
     },
   ],
 })

@@ -1,11 +1,15 @@
 import * as emoji from 'emoji-js';
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Message } from '../entity/message.entity';
 import { Reaction } from '../entity/reaction.entity';
 import { UserRepository } from '../../auth/repository/user.repository';
 import { MessageRepository } from '../repository/message.repository';
+import { ReactionRepository } from '../repository/reaction.repository';
 
 @Injectable()
 export class ReactionService {
@@ -14,8 +18,8 @@ export class ReactionService {
     private messageRepository: MessageRepository,
     @Inject('UserRepository')
     private userRepository: UserRepository,
-    @InjectRepository(Reaction)
-    private reactionRepository: Repository<Reaction>,
+    @Inject('ReactionRepository')
+    private reactionRepository: ReactionRepository,
   ) {}
 
   async createReaction(
@@ -34,7 +38,7 @@ export class ReactionService {
     }
 
     if (message.userId == user.id) {
-      throw new Error(`you cant not react to your message`);
+      throw new BadRequestException(`you cant not react to your message`);
     }
 
     const newReaction = new Reaction();

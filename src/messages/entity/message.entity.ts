@@ -13,15 +13,31 @@ export class Message extends BaseEntity {
   @Column()
   userId: number;
 
+  @ApiProperty({
+    description: 'The title of the message',
+    example: 'King for thousand years',
+  })
   @Column()
   title: string;
 
+  @ApiProperty({
+    description: 'The text of the message',
+    example: 'This is a great history',
+  })
   @Column()
   text: string;
 
+  @ApiProperty({
+    description: 'The comments of the message',
+    example: 'This is the comment',
+  })
   @OneToMany(() => Comment, (comment) => comment.message, { eager: true })
   comments: Comment[];
 
+  @ApiProperty({
+    description: 'The reactions of the message',
+    example: 'This is the reaction',
+  })
   @OneToMany(() => Reaction, (reaction) => reaction.message, { eager: true })
   reactions: Reaction[];
 
