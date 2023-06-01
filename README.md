@@ -19,7 +19,6 @@ DB_PASSWORD=123456
 DB_DATABASE=social_wired_db
 ```
 
-
 Luego para correr la aplicación se debe ejecutar el siguiente comando en la consola en la ubicación del proyecto:
 
 ```bash
