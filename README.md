@@ -58,7 +58,7 @@ El módulo messages gestiona a todo lo relacionado a los mensajes escritos por l
 El módulo auth se encarga de la gestión de usuarios y permisos de autenticación. Es responsable de garantizar que solo los usuarios autorizados puedan acceder a los recursos y funciones del sistema, así como de controlar el acceso a los datos sensibles. Este módulo es crucial para la seguridad y la protección de la información del sistema, y su correcta configuración es fundamental para asegurar su buen funcionamiento.
 
 ### common
-El módulo common contiene todas las funcionalidades que tienen en común todos los demás modulos.
+El módulo common contiene todas las funcionalidades que tienen en común todos los otros modulos.
 
 ## Bases de datos
 La base de datos utilizada para almacenar y gestionar los datos es PostgreSQL. Para crear y ejecutar las migraciones, se implementó TypeORM. El Diagrama de Relación de Entidades ilustra las diferentes entidades en el sistema y cómo se relacionan entre sí.
